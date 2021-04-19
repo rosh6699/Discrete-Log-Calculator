@@ -95,3 +95,17 @@ if __name__ == '__main__':
 
     # test(497, 5751318998,5915587277)
     # test(7777, 719517368978140, 777737777777777)
+
+    print("Question 1:\n ------")
+    g = 3
+    y = 326
+    p = 881
+    x = baby_step_giant_step_dlp(g, y, p)
+    print("log_{} {} (mod {}) : {} ".format(g, y, p, x))
+
+    print("Question 2:\n ------")
+    g = 7
+    y = 200
+    p = 911
+    x = baby_step_giant_step_dlp(g, y, p)
+    print("log_{} {} (mod {}) : {} ".format(g, y, p, x))
