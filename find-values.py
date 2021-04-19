@@ -1,18 +1,20 @@
 from math import ceil
 
 
+# Finding multiplicative inverse
 def multiplicative_inverse(r2, r1=26):
     # Using Extended Euclidean Algorithm with modifications
     m = r1
     t1, t2 = 0, 1
-
     while True:
         if r2 == 0:
+            # Uncomment to see steps
             # print("q = {},r1 ={},r2={}, r ={}, t1={},t2={}, t={}".format('', r1, r2, '', t1, t2, '*'))
             break
         q = r1 // r2
         r = r1 % r2
         t = t1 - q * t2
+        # Uncomment to see steps
         # print("q = {},r1 ={},r2={}, r ={}, t1={},t2={}, t={}".format(q, r1, r2, r, t1, t2, t))
 
         r1, r2, t1, t2 = r2, r, t2, t
@@ -25,18 +27,26 @@ def multiplicative_inverse(r2, r1=26):
         return t1 % m
 
 
+# bsgs algorithm for discrete log
 def baby_step_giant_step_dlp(g, y, p):
-    m = ceil(p**(1/2))
-    table = {1:0}
+    m = ceil(p ** (1 / 2))
+
+    # table for storing {g^j : j}
+    table = {1: 0}
     current = 1
     if y == 1:
         return 0
-    g_minus_m = pow(multiplicative_inverse(g,p),m,p)
+    # Computing g^-m mod p
+    # Modular exponentiation and Extended Euclidean Algorithm
+    # g^m(p-2) mod p can also be used - By Fermat Theorem
+    g_minus_m = pow(multiplicative_inverse(g, p), m, p)
+
+    # storing g^j
     for j in range(1, m):
-        current = g*current % p
+        current = g * current % p
         if current not in table:
             table[current] = j
-
+    # finding collision with y[(g^-m)]^i
     current = 1
     for i in range(1, m):
         current = (g_minus_m * current) % p
@@ -44,6 +54,7 @@ def baby_step_giant_step_dlp(g, y, p):
         if arg in table:
             return table[arg] + i * m
 
+    # If no solution
     return -1
 
 
