@@ -67,10 +67,13 @@ if __name__ == '__main__':
     # g, y, p = map(int, input("Enter g, y, p in space separated manner\n").split())
 
     secret = baby_step_giant_step_dlp(g, y, p)
-    a = list(range(1, p))
-    b = list(range(1, p))
+    a = list(range(0, p))
+    b = list(range(0, p))
     for i in a:
         for j in b:
             if i*j % (p - 1) == secret:
-                print("a = {}, b = {} shared_key = {}".format(i, j, pow(g,i*j,p)))
+                print("a = {}, b = {} shared_key = {} ab = {}".format(i, j, pow(g,i*j,p),i*j))
+    # for i in range(1, 22*22):
+    #     if(pow(g,i,p) == 21):
+    #         print(i)
 
